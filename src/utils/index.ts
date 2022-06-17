@@ -1,5 +1,5 @@
 
-import { config } from './config'
+import { config } from 'src/config'
 
 // 日志
 export const log = (...args: any[]) => {

@@ -1,11 +1,11 @@
 
-import { log, nf } from './utils'
+import { log, nf } from 'src/utils'
 
 interface AsyncMethodOptionLike {
   success?: (...args: any[]) => void
 }
 
-type PromisifySuccessResult<
+type PromisifySuccessResult1<
   P,
   T extends AsyncMethodOptionLike
 > =
@@ -14,6 +14,15 @@ type PromisifySuccessResult<
   : P extends { fail: any }
   ? void
   : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
+
+export type PromisifySuccessResult<
+  T extends AsyncMethodOptionLike
+  > =
+  T extends { success: any }
+    ? void
+    : T extends { fail: any }
+      ? void
+      : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
 
 interface FailCallbackResult {
   code?: number
@@ -83,21 +92,3 @@ export const core = <T>(options: CoreOptions<T>) => {
 }
 
 
-// interface BootstrapOption extends CoreOptions{
-//
-// }
-
-
-
-
-export const bootstrap = (options: {
-  success?
-}) => {
-
-}
-
-core<string>({
-  success(data) {
-
-  }
-})
