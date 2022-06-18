@@ -1,9 +1,5 @@
 
-import {
-  BaseActions,
-  FailCallbackResult,
-  withBasics,
-} from 'src/core'
+import { BaseActions, FailCallbackResult, withBasics } from 'src/core'
 
 export interface RequestOption<T = any> {
   url: string,
@@ -16,7 +12,5 @@ export interface RequestOption<T = any> {
 export const request = <
   P = any,
   T extends RequestOption<P> = RequestOption<P>,
->(
-  options: T
-) =>
+>(options: T) =>
   withBasics<T, RequestOption<P>>(BaseActions.REQUEST)(options)
