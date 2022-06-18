@@ -20,20 +20,15 @@ interface BootstrapOptions {
   year?: string
 }
 
-export const bootstrap = (
-  options: BootstrapOptions
-): PromisifySuccessResult<BootstrapOptions> => {
-  const { success, fail } = options
-  const result = { name: '张三', age: 12 }
-  if (success) {
-    success(result)
-    return
-  }
-  return new Promise((resolve, reject) => resolve(result))
+
+export const bootstrap =<T extends BootstrapOptions = BootstrapOptions> (
+  options: T
+): PromisifySuccessResult<T, BootstrapOptions> => {
+  return
 }
 
-bootstrap({
-
-}).then((res) => {
-  res.name
-})
+// bootstrap({
+//   success: () => {}
+// }).then((res) => {
+//   res.name
+// })

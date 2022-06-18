@@ -3,15 +3,6 @@ import { log, nf } from 'src/utils'
 import { DsBox } from './ds-box'
 import { Code } from './code'
 
-export type PromisifySuccessResult<
-  T extends { success?: (...args: any[]) => void }
-> =
-  T extends { success: any }
-    ? void
-    : T extends { fail: any }
-      ? void
-      : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
-
 export interface FailCallbackResult {
   code?: number
   message?: string
@@ -25,7 +16,7 @@ export type Options<T> =  {
   [props: string]: any
 }
 
-const core = <T extends Options<any>>(options: T): void => {
+const core = <T>(options: Options<T>): void => {
   const {
     success = nf,
     fail = nf,
@@ -49,9 +40,21 @@ const core = <T extends Options<any>>(options: T): void => {
   )
 }
 
-export const call = <T extends Options<any>>(
+export type PromisifySuccessResult<
+  P,
+  T extends { success?: (...args: any[]) => void }
+> = P extends { success: any }
+  ? void
+  : P extends { fail: any }
+    ? void
+      : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
+
+export const call = <
+  T extends Options<any>,
+  P extends Options<any>
+>(
   options: T
-): PromisifySuccessResult<T> => {
+): PromisifySuccessResult<T, P> => {
   const {
     success,
     fail,
@@ -63,6 +66,6 @@ export const call = <T extends Options<any>>(
   }
 
   return new Promise((success, fail) =>
-    core<T>(Object.assign({}, options, { success, fail }))
-  )
+    core(Object.assign({}, options, { success, fail }))
+  ) as any
 }
