@@ -1,5 +1,4 @@
-
-import { FailCallbackResult, withCurrying } from 'src/core'
+import {BaseActions, FailCallbackResult, withBasics} from 'src/core'
 
 interface RequestSuccessCallbackResult {
   data: string
@@ -13,14 +12,23 @@ export interface RequestOption {
   fail?: (err: FailCallbackResult) => void
 }
 
-export const request = <T extends RequestOption = RequestOption>(
+export const request = <
+  T extends RequestOption = RequestOption
+>(
   options: T
-) => withCurrying<T, RequestOption>('http')('request')(options)
+) =>
+  withBasics<T, RequestOption>('request')(options)
+
+
+
 
 request({
   url: '12321',
   // success: (data) => {
   //   data.data
+  // }
+  // fail: (err) => {
+  //
   // }
 }).then((res) => {
 
