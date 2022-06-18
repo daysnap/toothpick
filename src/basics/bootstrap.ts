@@ -14,13 +14,15 @@ interface BootstrapFailCallback {
   (err: any): void
 }
 
-interface BootstrapOption {
+interface BootstrapOptions {
   success?: BootstrapSuccessCallback
   fail?: BootstrapFailCallback
   year?: string
 }
 
-export const bootstrap = (options: BootstrapOption) : PromisifySuccessResult<BootstrapOption> => {
+export const bootstrap = (
+  options: BootstrapOptions
+): PromisifySuccessResult<BootstrapOptions> => {
   const { success, fail } = options
   const result = { name: '张三', age: 12 }
   if (success) {

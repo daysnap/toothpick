@@ -5,14 +5,14 @@ import { Code } from './code'
 
 export type PromisifySuccessResult<
   T extends { success?: (...args: any[]) => void }
-  > =
+> =
   T extends { success: any }
     ? void
     : T extends { fail: any }
       ? void
       : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
 
-interface FailCallbackResult {
+export interface FailCallbackResult {
   code?: number
   message?: string
 }
@@ -22,16 +22,16 @@ export type Options<T> =  {
   fail? (err: FailCallbackResult): void
   service: string
   action: string
-  params?: { [props: string]: any }
+  [props: string]: any
 }
 
-const core = <T>(options: Options<T>): void => {
+const core = <T extends Options<any>>(options: T): void => {
   const {
     success = nf,
     fail = nf,
     service,
     action,
-    params = {}
+    ...params
   } = options
   DsBox.call<T>(
     res => {
@@ -49,9 +49,9 @@ const core = <T>(options: Options<T>): void => {
   )
 }
 
-export const call = <T>(
-  options: Options<T>
-) : PromisifySuccessResult<Options<T>> => {
+export const call = <T extends Options<any>>(
+  options: T
+): PromisifySuccessResult<T> => {
   const {
     success,
     fail,
@@ -62,9 +62,7 @@ export const call = <T>(
     return
   }
 
-  return new Promise<T>((success, fail) =>
+  return new Promise((success, fail) =>
     core<T>(Object.assign({}, options, { success, fail }))
   )
 }
-
-
