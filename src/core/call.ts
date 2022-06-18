@@ -9,6 +9,15 @@ export interface FailCallbackResult {
   message?: string
 }
 
+export type PromisifySuccessResult<
+  P,
+  T extends { success?: (...args: any[]) => void }
+> = P extends { success: any }
+  ? void
+  : P extends { fail: any }
+    ? void
+    : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
+
 export type Options<T> =  {
   success? (data: T): void
   fail? (err: FailCallbackResult): void
@@ -16,6 +25,7 @@ export type Options<T> =  {
   action: string
   [props: string]: any
 }
+
 const core = <T>(options: Options<T>): void => {
   const {
     success = nf,
@@ -40,18 +50,9 @@ const core = <T>(options: Options<T>): void => {
   )
 }
 
-export type PromisifySuccessResult<
-  P,
-  T extends { success?: (...args: any[]) => void }
-> = P extends { success: any }
-  ? void
-  : P extends { fail: any }
-    ? void
-      : Promise<Parameters<Exclude<T['success'], undefined>>[0]>
-
 export const call = <
   T extends Options<any>,
-  P extends Options<any>
+  P extends Partial<Options<any>>
 >(
   options: T
 ): PromisifySuccessResult<T, P> => {

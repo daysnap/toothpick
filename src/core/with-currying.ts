@@ -1,9 +1,9 @@
 
 import { call, Options } from './call'
 import { Services } from './services'
-import { BaseActions } from './actions'
+import { BaseActions, PolymerizeActions, SDKActions } from './actions'
 
-export type WithCurryingOptions = Omit<Options<any>, 'service' | 'action'>
+type WithCurryingOptions = Omit<Options<any>, 'service' | 'action'>
 
 type MergeOptions<T> = (T & Pick<Options<any>, 'service' | 'action'>)
 
@@ -24,3 +24,21 @@ export const withBasics = <
   action: BaseActions
 ) =>
   withCurrying<T, P>(Services.BASICS)(action)
+
+export const withPolymerize = <
+  T extends WithCurryingOptions,
+  P extends WithCurryingOptions
+>(
+  action: PolymerizeActions
+) =>
+  withCurrying<T, P>(Services.POLYMERIZE)(action)
+
+export const withSDK = <
+  T extends WithCurryingOptions,
+  P extends WithCurryingOptions
+>(
+  action: SDKActions
+) =>
+  withCurrying<T, P>(Services.SDK)(action)
+
+
