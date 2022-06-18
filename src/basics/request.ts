@@ -4,28 +4,38 @@ import {
   withBasics
 } from 'src/core'
 
-interface RequestSuccessCallbackResult {
-  data: string
+interface RequestSuccessCallbackResult<T> {
+  data: any
 }
 
-export interface RequestOption {
+export interface RequestOption<T> {
   url: string,
   data?: any,
   timeout?: number,
-  success?: (result: RequestSuccessCallbackResult) => void
+  success?: (result: RequestSuccessCallbackResult<T>) => void
   fail?: (err: FailCallbackResult) => void
 }
 
 export const request = <
-  T extends RequestOption = RequestOption
+  P = any,
+  T extends RequestOption<P> = RequestOption<P>
 >(
   options: T
 ) =>
-  withBasics<T, RequestOption>(BaseActions.REQUEST)(options)
+  withBasics<T, RequestOption<P>>(BaseActions.REQUEST)(options)
 
+// const
 
 request({
   url: '12321',
+  // success: res => {},
+  // fail: () => {}
 }).then((res) => {
+  res.data
+})
 
-}).catch()
+type State<T> = {
+  value: T
+}
+
+type Reducer<T, S extends State<T>, A> = (state: S, action: A) => S
