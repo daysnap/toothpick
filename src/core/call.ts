@@ -12,7 +12,7 @@ export interface FailCallbackResult {
 export type Options<T> =  {
   success? (data: T): void
   fail? (err: FailCallbackResult): void
-  service: string
+  service: Services
   action: string
   [props: string]: any
 }

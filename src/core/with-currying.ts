@@ -23,4 +23,4 @@ export const withBasics = <
 >(
   action: BaseActions
 ) =>
-  withCurrying<T, P>('polymerize')(action)
+  withCurrying<T, P>(Services.BASICS)(action)

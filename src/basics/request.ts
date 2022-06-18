@@ -1,4 +1,8 @@
-import {BaseActions, FailCallbackResult, withBasics} from 'src/core'
+import {
+  BaseActions,
+  FailCallbackResult,
+  withBasics
+} from 'src/core'
 
 interface RequestSuccessCallbackResult {
   data: string
@@ -17,19 +21,11 @@ export const request = <
 >(
   options: T
 ) =>
-  withBasics<T, RequestOption>('request')(options)
-
-
+  withBasics<T, RequestOption>(BaseActions.REQUEST)(options)
 
 
 request({
   url: '12321',
-  // success: (data) => {
-  //   data.data
-  // }
-  // fail: (err) => {
-  //
-  // }
 }).then((res) => {
 
 }).catch()
