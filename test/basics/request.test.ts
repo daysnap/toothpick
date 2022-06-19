@@ -1,11 +1,10 @@
 import { call, request, Services } from 'src'
 
-
 interface Data {
   list: []
 }
 
-describe(`basics-request`, () => {
+describe(`basics request`, () => {
 
   it('should request data tips', () => {
     request({
