@@ -1,7 +1,7 @@
 
 import { BaseActions, FailCallbackResult, withBasics } from 'src/core'
 
-export interface RequestOption<T = any> {
+export interface RequestOptions<T = any> {
   url: string,
   data?: any,
   timeout?: number,
@@ -11,6 +11,6 @@ export interface RequestOption<T = any> {
 
 export const request = <
   P = any,
-  T extends RequestOption<P> = RequestOption<P>,
+  T extends RequestOptions<P> = RequestOptions<P>,
 >(options: T) =>
-  withBasics<T, RequestOption<P>>(BaseActions.REQUEST)(options)
+  withBasics<T, RequestOptions<P>>(BaseActions.REQUEST)(options)

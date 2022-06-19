@@ -26,7 +26,7 @@ export type Options<T> =  {
   [props: string]: any
 }
 
-const core = <T>(options: Options<T>): void => {
+export const core = <T>(options: Options<T>): void => {
   const {
     success = nf,
     fail = nf,
