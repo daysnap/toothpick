@@ -1,8 +1,8 @@
-
 import { log, nf } from 'src/utils'
 import { DsBox } from './ds-box'
 import { Code } from './code'
 import { Services } from './services'
+import { BaseActions, PolymerizeActions, SDKActions } from './actions'
 
 export interface FailCallbackResult {
   code?: number
@@ -22,10 +22,13 @@ export type Options<T> =  {
   success? (data: T): void
   fail? (err: FailCallbackResult): void
   service: Services
-  action: string
+  action: BaseActions | PolymerizeActions | SDKActions
   [props: string]: any
 }
 
+/**
+ * jssdk 核心 无需直接调用
+ */
 export const core = <T>(options: Options<T>): void => {
   const {
     success = nf,
@@ -50,6 +53,9 @@ export const core = <T>(options: Options<T>): void => {
   )
 }
 
+/**
+ * 包装函数
+ */
 export const call = <
   T extends Options<any>,
   P extends Partial<Options<any>>

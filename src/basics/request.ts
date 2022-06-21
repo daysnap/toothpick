@@ -1,4 +1,3 @@
-
 import { BaseActions, FailCallbackResult, withBasics } from 'src/core'
 
 export interface RequestOptions<T = any> {
