@@ -1,11 +1,11 @@
 
 interface Config {
-  log?: ((...args: any[]) => void) | boolean
+  log?: ((...args: any[]) => void) | boolean,
 }
 
 // 配置
 export const config: Config = {
-  log: true
+  log: true,
 }
 
 export const defineConfig = (cfg: Config) => Object.assign(config, cfg)
