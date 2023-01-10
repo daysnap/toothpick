@@ -1,1 +1,1 @@
-export default () => console.log(444)
+export * from './core'

@@ -7,10 +7,11 @@ const io = new Server(server)
 io.on('connection', (client) => {
   client.on('event', (data) => {
     /* … */
-    console.log('data => ', data)
+    console.log('event => ', data)
   })
-  client.on('disconnect', () => {
+  client.on('disconnect', (data) => {
     /* … */
+    console.log('disconnect', data)
   })
 })
 
