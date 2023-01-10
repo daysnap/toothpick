@@ -4,7 +4,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App bg-red-100">
+    <div className="App bg-red-100"
+    >
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
