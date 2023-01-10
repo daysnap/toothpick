@@ -2,7 +2,6 @@ import http from 'http'
 import { Server } from 'socket.io'
 
 const server = http.createServer()
-
 const io = new Server(server)
 
 io.on('connection', client => {
@@ -11,3 +10,5 @@ io.on('connection', client => {
 })
 
 server.listen(3000)
+
+console.log(`服务已启动`)
