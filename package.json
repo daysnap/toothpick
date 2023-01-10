@@ -1,12 +1,28 @@
 {
   "name": "toothpick",
+  "private": true,
   "version": "0.0.1",
   "description": "基于 websocket 的 debug 服务",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently --kill-others \"npm:start:*\"",
+    "start:service": "pnpm -C ./packages/service start",
+    "start:playground": "pnpm -C ./packages/playground start",
+    "pi": "pnpm install -no-frozen-lockfile",
+    "clean": "rimraf **/node_modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Woshiajuana",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.16.1"
+  },
+  "devDependencies": {
+    "lint-staged": "^13.1.0"
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "rimraf": "^3.0.2"
+  }
 }
