@@ -36,5 +36,11 @@
   "dependencies": {
     "concurrently": "^7.6.0",
     "rimraf": "^3.0.2"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --fix"
   }
 }
