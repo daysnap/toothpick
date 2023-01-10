@@ -3,8 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <title>toothpick playground</title>
+  <style>
+    .container{
+      width: 500px;
+      padding-top: 120px;
+      margin: 0 auto;
+    }
+    .container textarea{
+      display: block;
+      width: 100%;
+      min-height: 300px;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="container">
+    <textarea placeholder="请输入内容" id="content"></textarea>
+    <br/>
+    <button id="button">发送</button>
+  </div>
 </body>
 </html>

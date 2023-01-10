@@ -12,8 +12,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'src': resolve('src'),
-    }
+      src: resolve('src'),
+    },
+    extensions: ['.js', '.ts'],
   },
   module: {
     rules: [
@@ -22,11 +23,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'ts-loader',
       },
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: resolve('public/index.html')
+      template: resolve('public/index.html'),
     }),
     new CleanWebpackPlugin(),
   ],
