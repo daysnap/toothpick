@@ -1,0 +1,12 @@
+{
+  "name": "toothpick",
+  "version": "0.0.1",
+  "description": "基于 websocket 的 debug 服务",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Woshiajuana",
+  "license": "MIT"
+}
