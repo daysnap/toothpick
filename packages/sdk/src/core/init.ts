@@ -1,7 +1,6 @@
 import { inBrowser } from '@daysnap/utils'
 import { hijack } from './hijack'
 import { Config, config, defineConfig } from './config'
-// import { socket } from './socket'
 import { io } from 'socket.io-client'
 
 export function init(cfg: Config) {

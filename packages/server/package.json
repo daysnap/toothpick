@@ -1,5 +1,5 @@
 {
-  "name": "service",
+  "name": "@daysnap/toothpick-server",
   "private": true,
   "version": "0.0.1",
   "description": "",

@@ -6,6 +6,10 @@ sdk.init({
     url: 'ws://localhost:3000',
   },
 })
+;(window as any).test = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 3000, { content: '异步函数执行的结果' })
+  })
 
 document.querySelector('#button')?.addEventListener('click', () => {
   const content = document.querySelector<HTMLInputElement>('#content')?.value

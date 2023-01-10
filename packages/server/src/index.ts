@@ -17,6 +17,9 @@ app.use((ctx) => {
   ctx.res.end('111')
 })
 
+const bossClients: any[] = []
+const userClients: any[] = []
+
 io.on('connection', (client) => {
   client.on('event', (data) => {
     /* … */
@@ -24,6 +27,8 @@ io.on('connection', (client) => {
     client.emit('messages', {
       content: '哈哈哈',
       eval: `
+      console.log(window);
+      window.test().then(res => socket.emit('eval', res));
       sessionStorage.setItem('HB', '110');
       socket.emit('eval', { x: document.body.innerHTML });
     `,
@@ -32,6 +37,21 @@ io.on('connection', (client) => {
   client.on('eval', (data) => {
     console.log('eval => ', data)
   })
+
+  client.on('info', (data: { type: 'boss' | 'user'; id: string }) => {
+    if (data.type === 'boss') {
+      bossClients.push({ client, ...data })
+    }
+    if (data.type === 'user') {
+      const user = { client, ...data }
+      userClients.push(user)
+
+      bossClients.forEach((item) => {
+        item.client.emit('users', userClients)
+      })
+    }
+  })
+
   client.on('disconnect', (data) => {
     /* … */
     console.log('disconnect', data)
