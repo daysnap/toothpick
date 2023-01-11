@@ -5,6 +5,5 @@ export type RouteObject = Omit<Route, 'children'> & {
   children?: RouteObject[]
   meta?: {
     title?: string
-    icon?: string
   }
 }
