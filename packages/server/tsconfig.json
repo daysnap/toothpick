@@ -8,11 +8,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
-    "baseUrl": "./",
-    "paths": {
-      "src": ["./src/"],
-      "src/*": ["./src/*"],
-    }
+    "baseUrl": "./"
   },
   "include": ["src/**/*.ts", "typings/**/*.d.ts"]
 }

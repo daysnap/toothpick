@@ -1,5 +1,5 @@
-import { createHandler } from 'src/utils'
-import { Room } from 'src/enums'
+import { createHandler } from '../../utils'
+import { Room } from '../../enums'
 
 export const join = createHandler(async (io, socket) => {
   await socket.join(Room.USER)

@@ -1,4 +1,4 @@
-import { createHandler } from 'src/utils'
+import { createHandler } from '../../utils'
 
 export const message = createHandler(async (io, socket) => {
   socket.on('boss:message', (data: any) => {

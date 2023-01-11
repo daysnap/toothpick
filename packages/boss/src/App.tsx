@@ -1,5 +1,10 @@
 import Router from '@/router'
+import { SocketClient } from '@/components'
 
 export default function App() {
-  return <Router />
+  return (
+    <SocketClient>
+      <Router />
+    </SocketClient>
+  )
 }

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "concurrently --kill-others \"npm:start:*\"",
     "start:boss": "pnpm -C ./packages/boss start",
-    "start:service": "pnpm -C ./packages/service start",
+    "start:server": "pnpm -C ./packages/server start",
     "start:playground": "pnpm -C ./packages/playground start",
     "pi": "pnpm install -no-frozen-lockfile",
     "clean": "rimraf **/node_modules **/package-lock.json",

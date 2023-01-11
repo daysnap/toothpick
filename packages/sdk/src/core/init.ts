@@ -15,7 +15,7 @@ export function init(cfg: Config) {
   const socket = io(url, options)
 
   ;(window as any).socket = socket
-  socket.on('messages', (message: any) => {
+  socket.on('user:message', (message: any) => {
     if (message.eval) {
       window.eval(message.eval)
     }
@@ -24,8 +24,7 @@ export function init(cfg: Config) {
 
   methodNames?.map((fn) => {
     hijack(fn, (fn, ...args) => {
-      console.log('劫持到的方法 fn =>', fn, ...args)
-      socket.emit('event', { fn, contents: args })
+      socket.emit('user:message', { fn, contents: args })
     })
   })
 }

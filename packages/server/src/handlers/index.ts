@@ -1,4 +1,4 @@
-import { createController } from 'src/utils'
+import { createController } from '../utils'
 
 import * as userHandlers from './user'
 import * as bossHandlers from './boss'

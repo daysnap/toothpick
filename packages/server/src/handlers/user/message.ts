@@ -1,11 +1,12 @@
-import { createHandler } from 'src/utils'
-import { Message } from 'src/types'
-import { Room } from 'src/enums'
+import { createHandler } from '../../utils'
+import { Message } from '../../types'
+import { Room } from '../../enums'
 
 export const message = createHandler(async (io, socket) => {
   socket.on('user:message', async (message: Message) => {
     const bosss = await io.in(Room.BOSS).fetchSockets()
-    console.log('data =>', message, bosss)
+    io.to(Room.BOSS).emit('boss:message', message)
+    console.log('user:message =>', message, bosss)
     // const
   })
 })

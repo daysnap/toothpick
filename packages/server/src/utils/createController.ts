@@ -1,4 +1,4 @@
-import { Handler } from 'src/types'
+import { Handler } from '../types'
 
 export function createController(handlers: Record<string, Handler>): Handler {
   return (io, socket) =>

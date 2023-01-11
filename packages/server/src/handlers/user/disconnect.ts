@@ -1,5 +1,5 @@
-import { Room } from 'src/enums'
-import { createHandler } from 'src/utils'
+import { Room } from '../../enums'
+import { createHandler } from '../../utils'
 
 export const disconnect = createHandler(async (io, socket) => {
   socket.on('disconnect', async (data) => {
