@@ -2,13 +2,17 @@
   "compilerOptions": {
     "target": "esnext",
     "moduleResolution": "node",
-    "baseUrl": "./",
     "outDir": "es",
     "jsx": "preserve",
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "src": ["./src/"],
+      "src/*": ["./src/*"],
+    }
   },
   "include": ["src/**/*.ts", "typings/**/*.d.ts"]
 }

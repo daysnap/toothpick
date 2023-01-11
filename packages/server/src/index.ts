@@ -1,60 +1,20 @@
-// import http from 'http'
 import { Server } from 'socket.io'
+import http from 'http'
+import * as handlers from './handlers'
 
-// const server = http.createServer(app.callback())
+const PORT = 12580
+const server = http.createServer()
 
-const io = new Server(12580, {
+const io = new Server(server, {
   cors: {
     origin: '*',
   },
 })
 
-let clients: any[] = []
+io.on('connection', (socket) =>
+  Object.values(handlers).forEach((handler) => handler(io, socket)),
+)
 
-const bossClients: any[] = []
-const userClients: any[] = []
-
-io.on('connection', (client) => {
-  client.on('event', (data) => {
-    /* … */
-    console.log('event => ', data)
-    client.emit('messages', {
-      content: '哈哈哈',
-      eval: `
-      console.log(window);
-      window.test().then(res => socket.emit('eval', res));
-      sessionStorage.setItem('HB', '110');
-      socket.emit('eval', { x: document.body.innerHTML });
-    `,
-    })
-  })
-  client.on('eval', (data) => {
-    console.log('eval => ', data)
-  })
-
-  client.on('info', (data: { type: 'boss' | 'user'; id: string }) => {
-    if (data.type === 'boss') {
-      bossClients.push({ client, ...data })
-    }
-    if (data.type === 'user') {
-      const user = { client, ...data }
-      userClients.push(user)
-
-      bossClients.forEach((item) => {
-        item.client.emit('users', userClients)
-      })
-    }
-  })
-
-  client.on('disconnect', (data) => {
-    /* … */
-    console.log('disconnect', data)
-  })
-  client.on('disconnecting', () => {
-    clients = clients.filter((item) => item !== client)
-  })
+server.listen(PORT, () => {
+  console.log(`SOCKET 服务已启动，端口号 => ${PORT}`)
 })
-
-// server.listen(3000)
-
-console.log(`socket 服务已启动`)
