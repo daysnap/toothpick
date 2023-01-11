@@ -1,21 +1,15 @@
-import http from 'http'
+// import http from 'http'
 import { Server } from 'socket.io'
-import Koa from 'koa'
 
-const app = new Koa()
-const server = http.createServer(app.callback())
-const io = new Server(server, {
+// const server = http.createServer(app.callback())
+
+const io = new Server(12580, {
   cors: {
     origin: '*',
   },
 })
 
 let clients: any[] = []
-
-app.use((ctx) => {
-  console.log('req => ', ctx)
-  ctx.res.end('111')
-})
 
 const bossClients: any[] = []
 const userClients: any[] = []
@@ -61,6 +55,6 @@ io.on('connection', (client) => {
   })
 })
 
-server.listen(3000)
+// server.listen(3000)
 
 console.log(`socket 服务已启动`)

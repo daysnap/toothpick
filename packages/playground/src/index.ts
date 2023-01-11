@@ -3,7 +3,7 @@ import * as sdk from '@daysnap/toothpick-sdk'
 sdk.init({
   methodNames: ['debug', 'dir'],
   socketConfig: {
-    url: 'ws://localhost:3000',
+    url: 'ws://localhost:12580',
   },
 })
 ;(window as any).test = () =>
