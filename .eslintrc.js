@@ -30,6 +30,7 @@ module.exports = {
     'react/function-component-definition': 'off',
     'import/prefer-default-export': 'off',
 
+    'react/react-in-jsx-scope': 'off',
     'no-html-link-for-pages': 'off',
     'security/detect-object-injection': 'off',
     'no-nested-ternary': 'off',
