@@ -9,7 +9,7 @@ import { Message } from '@/types'
 export * from './socket-client-context'
 
 export interface SocketClientProps {
-  children: ReactElement
+  children: ReactElement | ReactElement[]
 }
 
 const socket = io('ws://localhost:12580')

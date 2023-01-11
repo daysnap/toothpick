@@ -1,0 +1,9 @@
+.decorator1 {
+  --color: rgba(3, 216, 165, 0.4);
+  background: radial-gradient(closest-side circle, var(--color), rgba(255,255,255,0.1));
+}
+
+.decorator2{
+  --color:rgba(255, 0, 210, 0.15);
+  background: radial-gradient(closest-side circle, var(--color), rgba(255,255,255,0.05));
+}
