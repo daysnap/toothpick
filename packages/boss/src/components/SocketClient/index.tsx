@@ -12,13 +12,15 @@ export interface SocketClientProps {
   children: ReactElement
 }
 
+const socket = io('ws://localhost:12580')
+
+socket.emit('boss:join')
+
 export function SocketClient(props: SocketClientProps) {
   const { children } = props
   const [users, setUsers] = useState<Socket[]>([])
 
   const socketClientContextValue = useMemo<SocketClientContextValue>(() => {
-    const socket = io('ws://localhost:12580')
-
     socket.on('boss:message', (message: Message) => {
       console.log(`boss:message => `, message)
     })

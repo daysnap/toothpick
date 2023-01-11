@@ -15,6 +15,9 @@ export function init(cfg: Config) {
   const socket = io(url, options)
 
   ;(window as any).socket = socket
+
+  socket.emit('user:join')
+
   socket.on('user:message', (message: any) => {
     if (message.eval) {
       window.eval(message.eval)

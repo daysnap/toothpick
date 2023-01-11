@@ -5,3 +5,5 @@ import * as bossHandlers from './boss'
 
 export const user = createController(userHandlers)
 export const boss = createController(bossHandlers)
+
+export * from './disconnect'
