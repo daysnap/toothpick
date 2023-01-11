@@ -12,8 +12,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   overrides: [],
-  // parser: 'babel-eslint',
-  // parser: '@typescript-eslint/parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -21,19 +20,18 @@ module.exports = {
       jsx: true,
     },
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.ts', '.tsx', '.scss', '.css'],
-      },
-    },
-  },
   plugins: ['react', '@typescript-eslint'],
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
+
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+
+    'react/function-component-definition': 'off',
+    'import/prefer-default-export': 'off',
+
+    'no-html-link-for-pages': 'off',
+    'security/detect-object-injection': 'off',
+    'no-nested-ternary': 'off',
   },
 }
