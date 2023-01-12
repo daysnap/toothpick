@@ -1,3 +1,4 @@
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import classnames from 'classnames'
 import { HTMLAttributes } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -19,13 +20,12 @@ export function Header(props: HeaderProps) {
       )}
     >
       {useLeftArrow && (
-        <button
+        <span
           onClick={() => navigate(-1)}
-          type="button"
-          className="absolute flex items-center justify-center left-0 top-0 bottom-0 w-14 cursor-pointer hover:bg-gray-100/50 transition-colors"
+          className="absolute flex items-center justify-center left-0 top-0 bottom-0 w-14 cursor-pointer hover:bg-gray-100/50 transition-colors text-gray-500 hover:text-gray-900"
         >
-          <i className="w-3 h-3 border-gray-400 border-b-2 border-l-2 rotate-45" />
-        </button>
+          <ArrowLeftOutlined />
+        </span>
       )}
 
       <h1 className="font-bold">{title}</h1>

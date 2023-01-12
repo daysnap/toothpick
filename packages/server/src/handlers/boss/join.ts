@@ -2,7 +2,7 @@ import { pick } from '@daysnap/utils'
 import { createHandler } from '../../utils'
 import { Room } from '../../enums'
 
-export const join = createHandler(async (io, socket) => {
+export const join = createHandler((io, socket) => {
   socket.on('boss:join', async () => {
     console.log('boss 进来了 => ', socket.id)
 

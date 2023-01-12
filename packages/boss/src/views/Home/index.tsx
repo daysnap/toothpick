@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Header, NoData } from '@/components'
 import { useSocketClientContext } from '@/components'
+import { RightOutlined } from '@ant-design/icons'
 
 export default function HomeView() {
   const { users } = useSocketClientContext()
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Header useLeftArrow={false} title="Toothpick" />
-      <div>
+      <div className="flex-1">
         {!users.length && <NoData />}
         {users.map((user) => (
           <Link
@@ -17,7 +18,7 @@ export default function HomeView() {
             to={`/session/${user.id}`}
           >
             用户<strong>（{user.id}）</strong>
-            <i className="w-2 h-2 border-gray-400 border-t-2 border-r-2 rotate-45 ml-auto" />
+            <RightOutlined className="ml-auto" />
           </Link>
         ))}
       </div>

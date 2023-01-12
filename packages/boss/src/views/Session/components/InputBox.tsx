@@ -1,14 +1,21 @@
+import { BugOutlined, ScissorOutlined } from '@ant-design/icons'
+import { Tooltip, Button } from 'antd'
+
 export function InputBox() {
   return (
-    <div className="border-t border-gray-200 h-32 bg-white/80 flex flex-col">
-      <div className="flex px-5 py-2">
-        <button className="h-6 text-[12px] flex items-center justify-center px-2 rounded-sm text-white bg-primary hover:bg-primary-hover">
-          截图
-        </button>
+    <div className="border-t border-gray-200 h-40 bg-white/80 flex flex-col">
+      <div className="flex p-4">
+        <Tooltip title="获取截图">
+          <Button icon={<ScissorOutlined />} />
+        </Tooltip>
+
+        <Tooltip title="执行代码">
+          <Button type="primary" icon={<BugOutlined />} className="ml-auto" />
+        </Tooltip>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 pb-4">
         <textarea
-          className="w-full h-full box-border outline-none resize-none px-5 py-2 text-[13px]"
+          className="w-full h-full box-border outline-none resize-none px-4 text-[13px]"
           placeholder="请输入代码"
         />
       </div>

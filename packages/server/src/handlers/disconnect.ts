@@ -15,7 +15,7 @@ export const disconnect = createHandler(async (io, socket) => {
       const users = await io.in(Room.USER).fetchSockets()
       io.to(Room.BOSS).emit('boss:user exit', {
         code: 0,
-        data: { user: pick(socket, ['id']), reason },
+        data: { ...pick(socket, ['id']), reason },
       })
       io.to(Room.BOSS).emit('boss:users', {
         code: 0,
