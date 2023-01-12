@@ -1,8 +1,9 @@
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button } from 'antd'
 import { Header, useSocketClientContext } from '@/components'
 import { InputBox, ScreenBox } from './components'
-import { useEffect } from 'react'
+import { Room, SessionContext, SessionMessage } from './SessionContext'
+import { Message } from '@/types'
 
 export default function SessionView() {
   const { userId: id } = useParams<{ userId: string }>()
@@ -15,14 +16,37 @@ export default function SessionView() {
     }
   }, [])
 
+  const [sessionMessages, setSessionMessages] = useState<SessionMessage[]>([])
+  const sessionContextValue = useMemo(
+    () => ({
+      sessionMessages,
+      setSessionMessages,
+    }),
+    [sessionMessages],
+  )
+
+  useEffect(() => {
+    socket.on(
+      'boss:message',
+      (
+        message: Message<{
+          fn: string
+          contents: any[]
+        }>,
+      ) => {
+        const { fn, contents } = message.data
+        setSessionMessages((v) => [...v, { fn, contents, type: Room.USER }])
+      },
+    )
+  }, [setSessionMessages])
+
   return (
-    <div className="flex flex-col h-screen">
-      <Header title={id} />
-      <div>
-        <Button type="primary">xxxxxx</Button>
+    <SessionContext.Provider value={sessionContextValue}>
+      <div className="flex flex-col h-screen">
+        <Header title={id} />
+        <ScreenBox />
+        <InputBox />
       </div>
-      <ScreenBox />
-      <InputBox />
-    </div>
+    </SessionContext.Provider>
   )
 }

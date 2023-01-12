@@ -8,12 +8,12 @@ export const screenshot = createHandler((io, socket) => {
     async (
       message: Message<{
         base64: string
-        boosIds: string[]
+        bossIds: string[]
       }>,
     ) => {
-      const { boosIds, base64 } = message.data
+      const { bossIds, base64 } = message.data
       ;(await io.in(Room.BOSS).fetchSockets())
-        .filter((boss) => boosIds.includes(boss.id))
+        .filter((boss) => bossIds.includes(boss.id))
         .forEach((boss) => {
           boss.emit('boss:screenshot', { code: 0, data: { base64 } })
         })
@@ -22,10 +22,10 @@ export const screenshot = createHandler((io, socket) => {
 
   socket.on(
     'user:screenshot error',
-    async (message: Message<{ reason: string; boosIds: string[] }>) => {
-      const { reason, boosIds } = message.data
+    async (message: Message<{ reason: string; bossIds: string[] }>) => {
+      const { reason, bossIds } = message.data
       ;(await io.in(Room.BOSS).fetchSockets())
-        .filter((boss) => boosIds.includes(boss.id))
+        .filter((boss) => bossIds.includes(boss.id))
         .forEach((boss) => {
           boss.emit('boss:error', reason)
         })

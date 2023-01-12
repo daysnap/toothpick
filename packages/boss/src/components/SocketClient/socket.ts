@@ -27,10 +27,5 @@ socket.on('boss:user exit', (message: Message) => {
   })
 })
 
-// 用户消息
-socket.on('boss:message', (message: Message) => {
-  console.log(`boss:message => `, message)
-})
-
 // 全局错误
 socket.on('boss:error', (reason: string) => message.error({ content: reason }))

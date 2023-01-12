@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client'
-import { inBrowser, pick } from '@daysnap/utils'
+import { inBrowser } from '@daysnap/utils'
 import html2canvas from 'html2canvas'
 import { hijack } from './hijack'
 import { Message } from '../types'
@@ -49,7 +49,7 @@ export function init(cfg: Config) {
           const base64 = canvas.toDataURL()
           socket.emit('user:screenshot', {
             code: 0,
-            data: { base64, bossIds: bosss.map((boss) => pick(boss, ['id'])) },
+            data: { base64, bossIds: bosss.map((boss) => boss.id) },
           })
         })
         .catch((err) => {
@@ -67,7 +67,7 @@ export function init(cfg: Config) {
           data: {
             fn,
             contents: args,
-            bossIds: bosss.map((boss) => pick(boss, ['id'])),
+            bossIds: bosss.map((boss) => boss.id),
           },
         })
       }

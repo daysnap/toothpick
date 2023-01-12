@@ -17,7 +17,10 @@ export function InputBox() {
   }
 
   const handleScreenshot = () => {
-    //
+    socket.emit('boss:screenshot', {
+      code: 0,
+      data: { id, selectors: content || 'body' },
+    })
   }
 
   return (
