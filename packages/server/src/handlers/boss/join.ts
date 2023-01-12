@@ -4,8 +4,6 @@ import { Room } from '../../enums'
 
 export const join = createHandler((io, socket) => {
   socket.on('boss:join', async () => {
-    console.log('boss 进来了 => ', socket.id)
-
     socket.join(Room.BOSS)
     ;(socket as any).type = Room.BOSS
 

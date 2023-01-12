@@ -13,10 +13,12 @@ export const session = createHandler((io, socket) => {
     const { id } = message.data
     const users = await io.in(Room.USER).fetchSockets()
     const user = users.find((user) => user.id === id)
+
     if (!user) {
       socket.emit('boss:error', `没有找到用户:${id}`)
       return
     }
+
     user.emit('user:session', { code: 0, data: pick(socket, ['id']) })
   })
 
@@ -25,6 +27,7 @@ export const session = createHandler((io, socket) => {
     const { id } = message.data
     const users = await io.in(Room.USER).fetchSockets()
     const user = users.find((user) => user.id === id)
+
     if (user) {
       user.emit('user:session exit', { code: 0, data: pick(socket, ['id']) })
     }
