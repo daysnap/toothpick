@@ -1,7 +1,8 @@
+import { io } from 'socket.io-client'
 import { inBrowser } from '@daysnap/utils'
 import { hijack } from './hijack'
+import { Message } from '../types'
 import { Config, config, defineConfig } from './config'
-import { io } from 'socket.io-client'
 
 export function init(cfg: Config) {
   if (!inBrowser()) {
@@ -16,18 +17,32 @@ export function init(cfg: Config) {
 
   ;(window as any).socket = socket
 
+  // 加入用户房间
   socket.emit('user:join')
 
-  socket.on('user:message', (message: any) => {
-    if (message.eval) {
-      window.eval(message.eval)
+  // 执行代码
+  socket.on('user:eval', (message: Message) => {
+    if (message.data) {
+      window.eval(message.data)
     }
-    console.log('收到服务端消息 => ', message)
   })
 
+  // 会话
+  let bosss: { id: string }[] = []
+  socket.on('user:session', (message: Message) => {
+    bosss.push(message.data)
+  })
+  socket.on('user:session exit', (message: Message) => {
+    bosss = bosss.filter((boss) => boss.id === message.data.id)
+  })
+
+  // 劫持
   methodNames?.map((fn) => {
     hijack(fn, (fn, ...args) => {
-      socket.emit('user:message', { fn, contents: args })
+      if (bosss.length) {
+        console.log('劫持代码')
+        socket.emit('user:message', { fn, contents: args })
+      }
     })
   })
 }

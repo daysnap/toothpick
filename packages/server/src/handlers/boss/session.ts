@@ -1,6 +1,7 @@
 import { createHandler } from '../../utils'
 import { Message } from '../../types'
 import { Room } from '../../enums'
+import { pick } from '@daysnap/utils'
 
 interface CallData {
   id: string
@@ -16,7 +17,7 @@ export const session = createHandler((io, socket) => {
       socket.emit('boss:error', `没有找到用户:${id}`)
       return
     }
-    user.emit('user:session', { code: 0, data: socket.id })
+    user.emit('user:session', { code: 0, data: pick(socket, ['id']) })
   })
 
   // 退出会话
@@ -25,7 +26,7 @@ export const session = createHandler((io, socket) => {
     const users = await io.in(Room.USER).fetchSockets()
     const user = users.find((user) => user.id === id)
     if (user) {
-      user.emit('user:session exit', { code: 0, data: socket.id })
+      user.emit('user:session exit', { code: 0, data: pick(socket, ['id']) })
     }
   })
 })
