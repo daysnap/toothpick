@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
 import { Message } from '@/types'
-import { notification } from 'antd'
+import { message, notification } from 'antd'
 
 export const socket = io('ws://localhost:12580')
 
@@ -13,6 +13,7 @@ socket.on('boss:user', (message: Message) => {
   notification.info({
     message: `温馨提示`,
     description: `有新用户连接进来了：${id}`,
+    placement: 'bottomRight',
   })
 })
 
@@ -22,6 +23,7 @@ socket.on('boss:user exit', (message: Message) => {
   notification.info({
     message: `温馨提示`,
     description: `用户：${id}已断开链接，断开原因：${reason}`,
+    placement: 'bottomRight',
   })
 })
 
@@ -29,3 +31,6 @@ socket.on('boss:user exit', (message: Message) => {
 socket.on('boss:message', (message: Message) => {
   console.log(`boss:message => `, message)
 })
+
+// 全局错误
+socket.on('boss:error', (reason: string) => message.error({ content: reason }))

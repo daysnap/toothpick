@@ -1,10 +1,15 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Header, NoData } from '@/components'
 import { useSocketClientContext } from '@/components'
 import { RightOutlined } from '@ant-design/icons'
 
 export default function HomeView() {
-  const { users } = useSocketClientContext()
+  const { users, socket } = useSocketClientContext()
+
+  useEffect(() => {
+    socket.emit('boss:refresh')
+  }, [])
 
   return (
     <div className="flex flex-col h-screen">
