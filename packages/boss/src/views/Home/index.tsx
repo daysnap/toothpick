@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Header } from '@/components'
+import { Header, NoData } from '@/components'
 import { useSocketClientContext } from '@/components'
 
 export default function HomeView() {
@@ -7,8 +7,9 @@ export default function HomeView() {
 
   return (
     <div>
-      <Header title="Toothpick" />
+      <Header useLeftArrow={false} title="Toothpick" />
       <div>
+        {!users.length && <NoData />}
         {users.map((user) => (
           <Link
             className="flex items-center p-5 border-b border-gray-100 text-[14px] text-gray-500 cursor-pointer hover:text-gray-700 hover:bg-primary/10 transition-colors"

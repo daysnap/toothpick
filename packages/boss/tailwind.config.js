@@ -17,6 +17,7 @@ module.exports = {
       colors: {
         // 主题
         primary: withOpacity('--tp-primary-color'),
+        'primary-hover': withOpacity('--tp-primary-hover-color'),
       },
     },
   },
