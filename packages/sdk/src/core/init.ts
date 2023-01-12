@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client'
-import { inBrowser } from '@daysnap/utils'
+import { inBrowser, pick } from '@daysnap/utils'
+import html2canvas from 'html2canvas'
 import { hijack } from './hijack'
 import { Message } from '../types'
 import { Config, config, defineConfig } from './config'
@@ -22,7 +23,6 @@ export function init(cfg: Config) {
 
   // 执行代码
   socket.on('user:eval', (message: Message<{ content: string }>) => {
-    console.log('xx => ', message)
     const { content } = message.data
     window.eval(content)
   })
@@ -36,13 +36,40 @@ export function init(cfg: Config) {
     bosss = bosss.filter((boss) => boss.id !== message.data.id)
   })
 
+  // 截图
+  socket.on('user:screenshot', (message: Message<{ selectors: string }>) => {
+    if (!bosss.length) {
+      return
+    }
+    const { selectors = 'body' } = message.data
+    const element = document.querySelector(selectors) as any
+    if (element) {
+      html2canvas(element)
+        .then((canvas) => {
+          const base64 = canvas.toDataURL()
+          socket.emit('user:screenshot', {
+            code: 0,
+            data: { base64, bossIds: bosss.map((boss) => pick(boss, ['id'])) },
+          })
+        })
+        .catch((err) => {
+          socket.emit('user:screenshot error', err?.toString())
+        })
+    }
+  })
+
   // 劫持
   methodNames?.map((fn) => {
     hijack(fn, (fn, ...args) => {
-      console.log('bosss => ', bosss)
       if (bosss.length) {
-        console.log('劫持代码')
-        socket.emit('user:message', { fn, contents: args })
+        socket.emit('user:message', {
+          code: 0,
+          data: {
+            fn,
+            contents: args,
+            bossIds: bosss.map((boss) => pick(boss, ['id'])),
+          },
+        })
       }
     })
   })

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { BugOutlined, ScissorOutlined } from '@ant-design/icons'
-import { Tooltip, Button } from 'antd'
+import { Tooltip, Button, Popconfirm } from 'antd'
 import { ChangeEventHandler, useState } from 'react'
 import { useSocketClientContext } from '@/components'
 
@@ -16,12 +16,25 @@ export function InputBox() {
     socket.emit('boss:eval', { code: 0, data: { id, content } })
   }
 
+  const handleScreenshot = () => {
+    //
+  }
+
   return (
     <div className="border-t border-gray-200 h-40 bg-white/80 flex flex-col">
       <div className="flex p-4">
-        <Tooltip title="获取截图">
+        <Popconfirm
+          placement="topLeft"
+          title="温馨提示"
+          description={`确认抓取用户屏幕？${
+            content ? '抓取元素为：' + content + '。' : ''
+          }`}
+          onConfirm={handleScreenshot}
+          okText="确定"
+          cancelText="取消"
+        >
           <Button icon={<ScissorOutlined />} />
-        </Tooltip>
+        </Popconfirm>
 
         <Tooltip title="执行代码">
           <Button
