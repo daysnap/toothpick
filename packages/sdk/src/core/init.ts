@@ -37,26 +37,32 @@ export function init(cfg: Config) {
   })
 
   // 截图
-  socket.on('user:screenshot', (message: Message<{ selectors: string }>) => {
-    if (!bosss.length) {
-      return
-    }
-    const { selectors = 'body' } = message.data
-    const element = document.querySelector(selectors) as any
-    if (element) {
-      html2canvas(element)
-        .then((canvas) => {
-          const base64 = canvas.toDataURL()
-          socket.emit('user:screenshot', {
-            code: 0,
-            data: { base64, bossIds: bosss.map((boss) => boss.id) },
+  socket.on(
+    'user:screenshot',
+    (message: Message<{ selectors: string; id: string }>) => {
+      const { selectors = 'body', id } = message.data
+      const element = document.querySelector(selectors) as any
+      if (element) {
+        html2canvas(element)
+          .then((canvas) => {
+            const base64 = canvas.toDataURL()
+            const bossIds = bosss.map((boss) => boss.id)
+
+            if (!bossIds.includes(id)) {
+              bossIds.push(id)
+            }
+
+            socket.emit('user:screenshot', {
+              code: 0,
+              data: { base64, bossIds },
+            })
           })
-        })
-        .catch((err) => {
-          socket.emit('user:screenshot error', err?.toString())
-        })
-    }
-  })
+          .catch((err) => {
+            socket.emit('user:screenshot error', err?.toString())
+          })
+      }
+    },
+  )
 
   // 劫持
   methodNames?.map((fn) => {

@@ -20,7 +20,10 @@ export const screenshot = createHandler((io, socket) => {
         return
       }
 
-      user.emit('user:screenshot', { code: 0, data: { selectors } })
+      user.emit('user:screenshot', {
+        code: 0,
+        data: { selectors, id: socket.id },
+      })
     },
   )
 })

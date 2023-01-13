@@ -1,7 +1,7 @@
 import * as sdk from '@daysnap/toothpick-sdk'
 
 sdk.init({
-  methodNames: ['debug', 'dir'],
+  // methodNames: ['debug', 'dir'],
   socketConfig: {
     url: 'ws://localhost:12580',
   },
@@ -12,6 +12,14 @@ sdk.init({
   })
 
 document.querySelector('#button')?.addEventListener('click', () => {
-  const content = document.querySelector<HTMLInputElement>('#content')?.value
-  console.dir('输出内容', content)
+  let content =
+    document.querySelector<HTMLInputElement>('#content')?.value ?? ''
+
+  try {
+    content = JSON.parse(content)
+  } catch {
+    //
+  }
+
+  console.log(content)
 })

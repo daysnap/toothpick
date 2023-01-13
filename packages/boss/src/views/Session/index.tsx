@@ -15,7 +15,7 @@ export default function SessionView() {
   const { socket } = useSocketClientContext()
 
   useEffect(() => {
-    socket.emit('boss:session', { code: 0, data: { id } })
+    // socket.emit('boss:session', { code: 0, data: { id } })
     return () => {
       socket.emit('boss:session exit', { code: 0, data: { id } })
     }
@@ -43,6 +43,23 @@ export default function SessionView() {
         setSessionMessages((v) => [
           ...v,
           { fn, contents, role: Room.USER, type: SessionMessageType.TEXT },
+        ])
+      },
+    )
+  }, [socket, setSessionMessages])
+
+  useEffect(() => {
+    socket.on(
+      'boss:screenshot',
+      (
+        message: Message<{
+          base64: string
+        }>,
+      ) => {
+        const { base64 } = message.data
+        setSessionMessages((v) => [
+          ...v,
+          { contents: [base64], role: Room.USER, type: SessionMessageType.IMG },
         ])
       },
     )
