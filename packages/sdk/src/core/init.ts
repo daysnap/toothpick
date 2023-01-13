@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client'
-import { inBrowser } from '@daysnap/utils'
+import { inBrowser, pick } from '@daysnap/utils'
 import html2canvas from 'html2canvas'
 import { hijack } from './hijack'
 import { Message } from '../types'
@@ -16,7 +16,7 @@ export function init(cfg: Config) {
   const { url, ...options } = socketConfig
   const socket = io(url, options)
 
-  ;(window as any).socket = socket
+  ;(window as any).$tp = socket
 
   // 加入用户房间
   socket.emit('user:join')
@@ -42,27 +42,54 @@ export function init(cfg: Config) {
     (message: Message<{ selectors: string; id: string }>) => {
       const { selectors = 'body', id } = message.data
       const element = document.querySelector(selectors) as any
-      if (element) {
-        html2canvas(element)
-          .then((canvas) => {
-            const base64 = canvas.toDataURL()
-            const bossIds = bosss.map((boss) => boss.id)
+      const bossIds = bosss.map((boss) => boss.id)
 
-            if (!bossIds.includes(id)) {
-              bossIds.push(id)
-            }
-
-            socket.emit('user:screenshot', {
-              code: 0,
-              data: { base64, bossIds },
-            })
-          })
-          .catch((err) => {
-            socket.emit('user:screenshot error', err?.toString())
-          })
+      if (!bossIds.includes(id)) {
+        bossIds.push(id)
       }
+
+      if (!element) {
+        socket.emit('user:screenshot error', {
+          code: 0,
+          data: { bossIds, reason: `没有找到选择器为：${selectors} 的元素。` },
+        })
+        return
+      }
+
+      html2canvas(element)
+        .then((canvas) => {
+          const base64 = canvas.toDataURL()
+
+          socket.emit('user:screenshot', {
+            code: 0,
+            data: { base64, bossIds },
+          })
+        })
+        .catch((err) => {
+          socket.emit('user:screenshot error', {
+            code: 0,
+            data: {
+              bossIds,
+              reason: err?.toString(),
+            },
+          })
+        })
     },
   )
+
+  // 监听error
+  window.addEventListener('unhandledrejection', (event) => {
+    console.error({
+      type: 'unhandledrejection',
+      message: event.reason?.message,
+    })
+  })
+  window.addEventListener('error', (event) => {
+    console.error({
+      type: 'error',
+      ...pick(event, ['message', 'lineno', 'colno', 'filename']),
+    })
+  })
 
   // 劫持
   methodNames?.map((fn) => {

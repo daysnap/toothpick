@@ -1,6 +1,7 @@
 import { LiHTMLAttributes, useMemo } from 'react'
-import { Image } from 'antd'
+import { Image, message } from 'antd'
 import classnames from 'classnames'
+import copy from 'copy-to-clipboard'
 import {
   Room,
   SessionMessage,
@@ -14,10 +15,9 @@ export interface ScreenItemProps extends LiHTMLAttributes<HTMLLIElement> {
 
 export function ScreenItem(props: ScreenItemProps) {
   const { className, item } = props
-  const { role } = item
+  const { role, type, contents, fn } = item
 
   const content = useMemo(() => {
-    const { contents, type } = item
     if (type === SessionMessageType.IMG) {
       return contents.map((base64, index) => (
         <Image
@@ -45,7 +45,13 @@ export function ScreenItem(props: ScreenItemProps) {
       })
     }
     return null
-  }, [item])
+  }, [contents, type])
+
+  const handleCopy = () => {
+    if (type === SessionMessageType.TEXT && copy(JSON.stringify(contents))) {
+      return message.success({ content: '复制成功' })
+    }
+  }
 
   if (!content) {
     return null
@@ -54,7 +60,7 @@ export function ScreenItem(props: ScreenItemProps) {
   return (
     <li
       className={classnames(
-        'mb-2 break-words flex ',
+        'mb-2 break-words flex',
         {
           'animated fadeInLeft': role === Room.USER,
           'animated fadeInRight justify-end text-right': role === Room.BOSS,
@@ -63,8 +69,11 @@ export function ScreenItem(props: ScreenItemProps) {
       )}
     >
       <div
+        onClick={handleCopy}
         className={classnames('max-w-[80%] bg-white p-2 rounded', {
           'bg-primary/80': role === Room.BOSS,
+          'bg-white': role === Room.USER && fn !== 'error',
+          'bg-red-200': role === Room.USER && fn === 'error',
         })}
       >
         {content}

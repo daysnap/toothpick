@@ -1,7 +1,6 @@
 import * as sdk from '@daysnap/toothpick-sdk'
 
 sdk.init({
-  // methodNames: ['debug', 'dir'],
   socketConfig: {
     url: 'ws://localhost:12580',
   },
