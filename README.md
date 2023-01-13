@@ -18,3 +18,12 @@ pnpm install socket.io -r
 pnpm install @daysnap/toothpick-sdk --filter @daysnap/toothpick-playground -S
 
 ```
+
+
+```bash
+nginx -t -c /etc/nginx/nginx.conf
+
+netstat -nap | grep 80
+
+kill -9 <pid>
+```
