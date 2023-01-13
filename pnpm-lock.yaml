@@ -54,6 +54,7 @@ importers:
       classnames: ^2.3.2
       cross-env: ^7.0.3
       customize-cra: ^1.0.0
+      eslint-plugin-react-hooks: ^4.6.0
       nprogress: ^0.2.0
       postcss: ^8.4.21
       react: ^18.2.0
@@ -90,6 +91,7 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.21
       cross-env: 7.0.3
       customize-cra: 1.0.0
+      eslint-plugin-react-hooks: 4.6.0
       postcss: 8.4.21
       react-app-rewired: 2.2.1_react-scripts@5.0.1
       sass: 1.57.1
@@ -5326,6 +5328,13 @@ packages:
       eslint-config-prettier: 8.6.0_eslint@8.31.0
       prettier: 2.8.2
       prettier-linter-helpers: 1.0.0
+    dev: true
+
+  /eslint-plugin-react-hooks/4.6.0:
+    resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
     dev: true
 
   /eslint-plugin-react-hooks/4.6.0_eslint@8.31.0:
