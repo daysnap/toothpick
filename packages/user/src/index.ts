@@ -2,7 +2,7 @@ import * as sdk from '@daysnap/toothpick-sdk'
 
 sdk.init({
   socketConfig: {
-    url: 'ws://localhost:12580',
+    url: 'ws://10.50.101.114:12580',
   },
 })
 ;(window as any).test = () =>

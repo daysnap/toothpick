@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>toothpick playground</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
+  <title>Toothpick User</title>
   <style>
     .container{
       max-width: 500px;
@@ -16,6 +17,17 @@
       padding: 12px;
       box-sizing: border-box;
     }
+    .container button{
+      color: #fff;
+      user-select: none;
+      cursor: pointer;
+      width: 100%;
+      height: 44px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background-color: #00b96b;
+    }
   </style>
 </head>
 <body>
@@ -24,5 +36,9 @@
     <br/>
     <button id="button">发送</button>
   </div>
+  <script src="http://cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>
+  <script>
+    eruda.init()
+  </script>
 </body>
 </html>

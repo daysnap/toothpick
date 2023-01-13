@@ -19,9 +19,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        loader: 'ts-loader',
+        // 同时认识ts jsx js tsx 文件
+        test: /\.(t|j)sx?$/,
+        use: 'babel-loader',
       },
     ],
   },
