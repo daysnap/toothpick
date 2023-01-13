@@ -5,10 +5,16 @@ export enum Room {
   BOSS = 'boss',
 }
 
+export enum SessionMessageType {
+  IMG = 'img',
+  TEXT = 'text',
+}
+
 export interface SessionMessage {
-  type: Room
+  role: Room
   fn?: string
   contents: any[]
+  type: SessionMessageType
 }
 
 export interface SessionContextValue {

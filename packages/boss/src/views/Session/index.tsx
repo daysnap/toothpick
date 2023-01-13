@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Header, useSocketClientContext } from '@/components'
 import { InputBox, ScreenBox } from './components'
-import { Room, SessionContext, SessionMessage } from './SessionContext'
+import {
+  Room,
+  SessionContext,
+  SessionMessage,
+  SessionMessageType,
+} from './SessionContext'
 import { Message } from '@/types'
 
 export default function SessionView() {
@@ -14,7 +19,7 @@ export default function SessionView() {
     return () => {
       socket.emit('boss:session exit', { code: 0, data: { id } })
     }
-  }, [])
+  }, [id, socket])
 
   const [sessionMessages, setSessionMessages] = useState<SessionMessage[]>([])
   const sessionContextValue = useMemo(
@@ -35,10 +40,13 @@ export default function SessionView() {
         }>,
       ) => {
         const { fn, contents } = message.data
-        setSessionMessages((v) => [...v, { fn, contents, type: Room.USER }])
+        setSessionMessages((v) => [
+          ...v,
+          { fn, contents, role: Room.USER, type: SessionMessageType.TEXT },
+        ])
       },
     )
-  }, [setSessionMessages])
+  }, [socket, setSessionMessages])
 
   return (
     <SessionContext.Provider value={sessionContextValue}>

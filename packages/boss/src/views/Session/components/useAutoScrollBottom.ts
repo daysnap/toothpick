@@ -42,6 +42,10 @@ export function useAutoScrollBottom(
   useEffect(() => {
     if (!disabledAutoScrollRef.current) {
       scrollToBottom()
+      setTimeout(scrollToBottom, 50)
+      setTimeout(scrollToBottom, 100)
+      setTimeout(scrollToBottom, 150)
+      setTimeout(scrollToBottom, 200)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps, scrollToBottom])

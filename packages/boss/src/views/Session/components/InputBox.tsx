@@ -3,6 +3,11 @@ import { BugOutlined, ScissorOutlined } from '@ant-design/icons'
 import { Tooltip, Button, Popconfirm } from 'antd'
 import { ChangeEventHandler, useState } from 'react'
 import { useSocketClientContext } from '@/components'
+import {
+  Room,
+  SessionMessageType,
+  useSessionContext,
+} from '@/views/Session/SessionContext'
 
 export function InputBox() {
   const { userId: id } = useParams<{ userId: string }>()
@@ -11,12 +16,31 @@ export function InputBox() {
     setContent(event.target.value)
   }
 
+  const { setSessionMessages } = useSessionContext()
   const { socket } = useSocketClientContext()
   const handleDebug = () => {
+    setSessionMessages((v) => [
+      ...v,
+      {
+        role: Room.BOSS,
+        contents: [content],
+        type: SessionMessageType.TEXT,
+      },
+    ])
     socket.emit('boss:eval', { code: 0, data: { id, content } })
   }
 
   const handleScreenshot = () => {
+    setSessionMessages((v) => [
+      ...v,
+      {
+        role: Room.BOSS,
+        contents: [
+          `抓取用户屏幕${content ? '，抓取元素为：' + content + '。' : '。'}`,
+        ],
+        type: SessionMessageType.TEXT,
+      },
+    ])
     socket.emit('boss:screenshot', {
       code: 0,
       data: { id, selectors: content || 'body' },
@@ -53,7 +77,7 @@ export function InputBox() {
         <textarea
           value={content}
           onChange={handlerChange}
-          className="w-full h-full box-border outline-none resize-none px-4 text-[13px]"
+          className="w-full h-full box-border outline-none resize-none px-4 text-[13px] bg-transparent"
           placeholder="请输入代码"
         />
       </div>
