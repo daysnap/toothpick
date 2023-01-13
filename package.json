@@ -8,7 +8,7 @@
     "start": "concurrently --kill-others \"npm:start:*\"",
     "start:boss": "pnpm -C ./packages/boss start",
     "start:server": "pnpm -C ./packages/server start",
-    "start:playground": "pnpm -C ./packages/playground start",
+    "start:user": "pnpm -C ./packages/user start",
     "pi": "pnpm install -no-frozen-lockfile",
     "clean": "rimraf **/node_modules **/package-lock.json",
     "test": "echo \"Error: no test specified\" && exit 1",
