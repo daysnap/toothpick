@@ -16,8 +16,6 @@ export function init(cfg: Config) {
   const { url, ...options } = socketConfig
   const socket = io(url, options)
 
-  ;(window as any).$tp = socket
-
   // 加入用户房间
   socket.emit('user:join')
 
@@ -57,7 +55,7 @@ export function init(cfg: Config) {
       }
 
       html2canvas(element)
-        .then((canvas) => {
+        .then((canvas: any) => {
           const base64 = canvas.toDataURL()
 
           socket.emit('user:screenshot', {
@@ -65,7 +63,7 @@ export function init(cfg: Config) {
             data: { base64, bossIds },
           })
         })
-        .catch((err) => {
+        .catch((err: any) => {
           socket.emit('user:screenshot error', {
             code: 0,
             data: {
