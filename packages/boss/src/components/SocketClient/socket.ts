@@ -2,7 +2,15 @@ import { io } from 'socket.io-client'
 import { Message } from '@/types'
 import { message } from 'antd'
 
-export const socket = io('ws://localhost:12580')
+const { hostname } = location
+let url = `ws://${hostname}:12580`
+if (hostname === 'demo.daysnap.cn') {
+  url = 'ws://119.3.156.101:12580'
+} else if (hostname === 'localhost') {
+  url = 'ws://localhost:12580'
+}
+
+export const socket = io(url)
 
 // 加入 boss
 socket.emit('boss:join')

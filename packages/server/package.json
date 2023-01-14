@@ -5,16 +5,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ext js,ts --exec 'ts-node ./src/index.ts'",
-    "start1": "nodemon --ext js,ts --exec 'npm run lint:dev && ts-node ./src/index.ts'",
+    "dev": "nodemon --ext js,ts --exec 'npm run ts-node'",
+    "ts-node": "ts-node ./src/index.ts",
+    "start": "pm2 start npm --name toothpick-server -- run ts-node",
+    "release": "./bin/release.sh",
     "lint:dev": "eslint './src/**/*.ts'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "woshiajuana",
   "license": "MIT",
   "devDependencies": {
-    "@types/koa": "^2.13.5",
     "@types/node": "^18.11.18",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",

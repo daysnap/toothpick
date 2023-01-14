@@ -1,19 +1,20 @@
 # bin/bash
 
-# 打包
-npm run build
+mkdir -p ./dist
 
 # 压缩
-cd ./build
-zip -r ./dist.zip ./*
+zip -r ./dist/dist.zip ./* -x='node_modules/*' -x='dist/*'
 
-pwd
+cd ./dist
 
 # 创建目录
-ssh root@119.3.156.101 'cd /web/demo/ && mkdir toothpick/boss -p'
+ssh root@119.3.156.101 'cd /webserver/ && mkdir -p toothpick/server'
 
 # 上传
-scp -r ./dist.zip root@119.3.156.101:/web/demo/toothpick/boss
+scp -r ./dist.zip root@119.3.156.101:/webserver/toothpick/server
 
 # 解压
-ssh root@119.3.156.101 'cd /web/demo/toothpick/boss && unzip -o dist.zip'
+ssh root@119.3.156.101 'cd /webserver/toothpick/server && unzip -o dist.zip'
+
+# npm install & start
+ssh root@119.3.156.101 'cd /webserver/toothpick/server && npm install && npm start'

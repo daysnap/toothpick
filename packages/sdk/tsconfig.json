@@ -3,7 +3,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "baseUrl": "./",
-    "outDir": "es",
+    "outDir": "dist",
     "jsx": "preserve",
     "declaration": true,
     "skipLibCheck": true,

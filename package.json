@@ -9,6 +9,7 @@
     "dev:boss": "pnpm -C ./packages/boss dev",
     "dev:server": "pnpm -C ./packages/server dev",
     "dev:user": "pnpm -C ./packages/user dev",
+    "release": "pnpm -C ./packages/boss release && pnpm -C ./packages/user release && pnpm -C ./packages/server release",
     "pi": "pnpm install -no-frozen-lockfile",
     "clean": "rimraf **/node_modules **/package-lock.json",
     "test": "echo \"Error: no test specified\" && exit 1",

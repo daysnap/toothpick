@@ -3,7 +3,9 @@ import http from 'http'
 import * as handlers from './handlers'
 
 const PORT = 12580
-const server = http.createServer()
+const server = http.createServer((req, res) => {
+  res.end('Toothpick Server running...')
+})
 
 const io = new Server(server, {
   cors: {

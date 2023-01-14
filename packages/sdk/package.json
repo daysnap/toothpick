@@ -2,8 +2,9 @@
   "name": "@daysnap/toothpick-sdk",
   "version": "0.0.1",
   "description": "客户端",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -12,6 +13,10 @@
   ],
   "author": "woshiajuana",
   "license": "MIT",
+  "files": [
+    "es",
+    "dist"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

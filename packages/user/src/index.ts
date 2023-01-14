@@ -1,14 +1,18 @@
 import * as sdk from '@daysnap/toothpick-sdk'
 
+const { hostname } = location
+let url = `ws://${hostname}:12580`
+if (hostname === 'demo.daysnap.cn') {
+  url = 'ws://119.3.156.101:12580'
+} else if (hostname === 'localhost') {
+  url = 'ws://localhost:12580'
+}
+
 sdk.init({
   socketConfig: {
-    url: 'ws://10.50.101.114:12580',
+    url,
   },
 })
-;(window as any).test = () =>
-  new Promise((resolve) => {
-    setTimeout(resolve, 3000, { content: '异步函数执行的结果' })
-  })
 
 document.querySelector('#button')?.addEventListener('click', () => {
   let content =

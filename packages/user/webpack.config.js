@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const resolve = (...dir) => path.resolve(__dirname, ...dir)
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+console.log(resolve('node_modules/@daysnap/toothpick-sdk'))
 
 module.exports = {
   mode: 'development',
@@ -20,8 +21,13 @@ module.exports = {
     rules: [
       {
         // 同时认识ts jsx js tsx 文件
-        test: /\.(t|j)sx?$/,
-        use: 'babel-loader',
+        // test: /\.(t|j)sx?$/,
+        test: /\.ts$/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+        ],
       },
     ],
   },
