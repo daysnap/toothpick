@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon --ext js,ts --exec 'npm run ts-node'",
     "ts-node": "ts-node ./src/index.ts",
-    "start": "pm2 start npm --name toothpick-server -- run ts-node",
+    "start": "pm2 start npm --watch --name toothpick-server -- run ts-node",
+    "restart": "pm2 restart toothpick-server",
+    "stop": "pm2 stop toothpick-server",
     "release": "./bin/release.sh",
     "lint:dev": "eslint './src/**/*.ts'",
     "test": "echo \"Error: no test specified\" && exit 1"

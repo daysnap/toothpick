@@ -34,6 +34,9 @@ yum -y install nodejs
 yum remove nodejs npm -y
 
 curl --silent --location https://rpm.nodesource.com/setup_16.13.0 | sudo bash -
+
+
+pm2 log [project]
 ```
 
 

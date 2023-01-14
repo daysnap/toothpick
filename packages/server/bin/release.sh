@@ -3,7 +3,7 @@
 mkdir -p ./dist
 
 # 压缩
-zip -r ./dist/dist.zip ./* -x='node_modules/*' -x='dist/*'
+zip -r ./dist/dist.zip ./* -x='node_modules/*' -x='dist/*' -x='bin/*'
 
 cd ./dist
 
@@ -17,4 +17,4 @@ scp -r ./dist.zip root@119.3.156.101:/webserver/toothpick/server
 ssh root@119.3.156.101 'cd /webserver/toothpick/server && unzip -o dist.zip'
 
 # npm install & start
-ssh root@119.3.156.101 'cd /webserver/toothpick/server && npm install && npm start'
+ssh root@119.3.156.101 'cd /webserver/toothpick/server && npm install && npm run restart'
