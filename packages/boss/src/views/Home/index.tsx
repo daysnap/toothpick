@@ -9,7 +9,7 @@ export default function HomeView() {
 
   useEffect(() => {
     socket.emit('boss:refresh')
-  }, [])
+  }, [socket])
 
   return (
     <div className="flex flex-col h-screen">
