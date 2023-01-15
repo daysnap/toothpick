@@ -1,5 +1,8 @@
 import { ConfigProvider, Watermark } from 'antd'
-import { StyleProvider } from '@ant-design/cssinjs'
+import {
+  StyleProvider,
+  legacyLogicalPropertiesTransformer,
+} from '@ant-design/cssinjs'
 import zhCN from 'antd/es/locale/zh_CN'
 import classnames from 'classnames'
 import Router from '@/router'
@@ -9,7 +12,10 @@ import classes from './index.module.scss'
 export default function App() {
   return (
     // https://ant.design/docs/react/compatible-style-cn
-    <StyleProvider hashPriority="high">
+    <StyleProvider
+      hashPriority="high"
+      transformers={[legacyLogicalPropertiesTransformer]}
+    >
       <ConfigProvider
         locale={zhCN}
         theme={{
