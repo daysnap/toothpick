@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const resolve = (...dir) => path.resolve(__dirname, ...dir)
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-console.log(resolve('node_modules/@daysnap/toothpick-sdk'))
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -36,6 +36,22 @@ module.exports = {
       template: resolve('public/index.html'),
     }),
     new CleanWebpackPlugin(),
+
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          // 定义要拷贝的源目录
+          from: resolve('public'),
+          // 定义要拷贝到的目标目录
+          to: resolve('dist'),
+          globOptions: {
+            dot: true,
+            gitignore: true,
+            ignore: ['**/*index.html'],
+          },
+        },
+      ],
+    }),
   ],
   devServer: {
     // 运行的目录

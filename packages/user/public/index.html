@@ -37,8 +37,23 @@
     <button id="button">发送</button>
   </div>
   <script src="http://cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>
+  <script src="./toothpick.js"></script>
   <script>
     eruda.init()
+    var hostname = location.hostname
+    var url = `ws://${hostname}:12580`
+    if (hostname === 'demo.daysnap.cn') {
+      url = 'ws://119.3.156.101:12580'
+    } else if (hostname === 'localhost') {
+      url = 'ws://localhost:12580'
+    }
+
+    toothpick.init({
+      socketConfig: {
+        url,
+      },
+    })
+
   </script>
 </body>
 </html>

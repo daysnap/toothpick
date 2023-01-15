@@ -20,7 +20,7 @@ export default {
     },
   ],
   // 配置 external 属性，告诉 rollup.js 哪些是外部的类库。
-  external: ['html2canvas'],
+  // external: ['html2canvas'],
   plugins: [
     commonjs(),
     nodeResolve({
@@ -52,7 +52,7 @@ export default {
             // 切换生成器函数是否污染全局
             // 为true时打包体积会稍微有些大 但生成器函数并不会污染全局作用域
             regenerator: true,
-            version: '7.0.0-beta.0',
+            // version: '7.0.0-beta.0',
           },
         ],
       ],
