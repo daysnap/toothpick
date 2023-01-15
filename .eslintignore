@@ -2,3 +2,6 @@
 /dist
 webpack.config.js
 config-overrides.js
+
+html2canvas.min.js
+socket.io.min.js

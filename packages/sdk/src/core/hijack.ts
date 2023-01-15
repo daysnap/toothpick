@@ -1,4 +1,4 @@
-import { isFunction } from '@daysnap/utils'
+import { isFunction } from '../utils'
 import { config } from './config'
 
 export type HijackFn = (typeof config.methodNames)[number]

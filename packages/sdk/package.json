@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "tsc": "tsc",
+    "release": "./bin/release.sh",
     "build": "rollup -c ./rollup.config.js --bundleConfigAsCjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,7 +27,6 @@
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.18.6",
-    "@babel/runtime": "^7.20.7",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",

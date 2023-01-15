@@ -36,10 +36,10 @@
     <br/>
     <button id="button">发送</button>
   </div>
-  <script src="http://cdn.bootcss.com/eruda/1.5.2/eruda.min.js"></script>
-  <script src="./toothpick.js"></script>
+  <script src="http://demo.daysnap.cn/toothpick/sdk/socket.io.min.js"></script>
+  <script src="http://demo.daysnap.cn/toothpick/sdk/html2canvas.min.js"></script>
+  <script src="http://demo.daysnap.cn/toothpick/sdk/toothpick.min.js"></script>
   <script>
-    eruda.init()
     var hostname = location.hostname
     var url = `ws://${hostname}:12580`
     if (hostname === 'demo.daysnap.cn') {

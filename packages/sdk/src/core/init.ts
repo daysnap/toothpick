@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client'
-import { inBrowser, pick } from '@daysnap/utils'
 import html2canvas from 'html2canvas'
+import { inBrowser, pick } from '../utils'
 import { hijack } from './hijack'
 import { Message } from '../types'
 import { Config, config, defineConfig } from './config'

@@ -9,7 +9,8 @@
     "dev:boss": "pnpm -C ./packages/boss dev",
     "dev:server": "pnpm -C ./packages/server dev",
     "dev:user": "pnpm -C ./packages/user dev",
-    "release": "npm run release:boss && npm run release:user && npm run release:server",
+    "release": "npm run release:boss && npm run release:user && npm run release:server && npm run release:sdk",
+    "release:sdk": "pnpm -C ./packages/sdk release",
     "release:boss": "pnpm -C ./packages/boss release",
     "release:user": "pnpm -C ./packages/user release",
     "release:server": "pnpm -C ./packages/server release",
@@ -47,6 +48,6 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": "eslint --fix"
+    "*.{ts,jsx,tsx}": "eslint --fix"
   }
 }
