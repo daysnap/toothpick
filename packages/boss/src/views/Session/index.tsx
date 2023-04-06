@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Header, useSocketClientContext } from '@/components'
+import { Header, useSocketClientContext, AuthRoute } from '@/components'
 import { InputBox, ScreenBox } from './components'
 import {
   Room,
@@ -66,12 +66,14 @@ export default function SessionView() {
   }, [socket, setSessionMessages])
 
   return (
-    <SessionContext.Provider value={sessionContextValue}>
-      <div className="flex flex-col h-screen">
-        <Header title={id} />
-        <ScreenBox />
-        <InputBox />
-      </div>
-    </SessionContext.Provider>
+    <AuthRoute>
+      <SessionContext.Provider value={sessionContextValue}>
+        <div className="flex flex-col h-screen">
+          <Header title={id} />
+          <ScreenBox />
+          <InputBox />
+        </div>
+      </SessionContext.Provider>
+    </AuthRoute>
   )
 }
